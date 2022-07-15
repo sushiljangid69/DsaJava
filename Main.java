@@ -1,37 +1,44 @@
 /**
- * Problem1: Count the frequencies of words in the string
+ * Problem2: Tower of Hanoi Problem using Stack and Recursion
  */
-import java.util.Scanner;
-import java.util.HashMap;
+import java.util.Stack;
 
 public class Main {
-    Scanner scn;
-    HashMap<String,Integer> hashMap;
-    String string;
-    String[] words;
+    Stack<Integer> source;
+    Stack<Integer> destination;
+    Stack<Integer> auxiliary;
 
-    public Main(){
-        scn = new Scanner(System.in);
-        hashMap = new HashMap<>();
+    /**
+     *
+     * @param size input the number of disks on the tower
+     */
+    public Main(int size){
+        source = new Stack<>();
+        destination = new Stack<>();
+        auxiliary = new Stack<>();
 
-        System.out.println("Please Enter string:");
-        string = scn.nextLine(); //taking string from the user
-        words = string.split("\\s"); //splitting string on spaces
-
-        //counting logic
-        for(String w:words){
-            if(hashMap.containsKey(w)){
-                //key already exist
-                hashMap.put(w,hashMap.get(w)+1);
-            }else{
-                hashMap.put(w,1);
-            }
+        //inserting data into source
+        for(int i=size;i>0;i--){
+            source.push(i);
         }
 
-        //now our hashmap contains the frequencies of words
-        hashMap.forEach((k,v)-> System.out.printf("%s = %d%n",k,v));
+        //tower of hanoi function call
+        toh(size,source,auxiliary,destination);
+
+        //printing the elements from the destination
+        destination.forEach(System.out::println);
+    }
+    void toh(int size,Stack<Integer> source,Stack<Integer> auxiliary,Stack<Integer> destination){
+        if(size == 1){
+            //move disk from source to destination
+            destination.push(source.pop());
+        }else{
+            toh(size-1,source,destination,auxiliary);
+            destination.push(source.pop());
+            toh(size-1,auxiliary,source,destination);
+        }
     }
     public static void main(String[] args){
-        new Main();
+        new Main(5);
     }
 }
