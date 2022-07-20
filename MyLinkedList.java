@@ -1,7 +1,12 @@
+import java.util.LinkedList;
+
 public class MyLinkedList {
     Node head;
+    static float f = 44.123450f;
     static int count = 0;
     public static void main(String[] args){
+//        System.out.printf("%f",f);
+
         MyLinkedList obj = new MyLinkedList();
         obj.createNodeAtStart(1,"First Node");
         obj.createNodeAtEnd(2,"Second Node");
@@ -15,12 +20,15 @@ public class MyLinkedList {
 
         obj.traverse();
         System.out.println("Total Nodes are = "+count);
+        obj.deleteNodeFromEnd();
+        obj.traverse();
+
     }
     void createNodeAtEnd(int id, String name){
         if(head == null){
             //there is no node in linked list
             head = new Node(id,name);
-            System.out.println(head);
+            //System.out.println(head);
         }else{
             //there can be nodes in liked list
             Node temp = head;
@@ -28,7 +36,7 @@ public class MyLinkedList {
                 temp = temp.next;
             }
             temp.next = new Node(id,name);
-            System.out.println(temp.next);
+            //System.out.println(temp.next);
         }
         count++;
     }
@@ -54,12 +62,12 @@ public class MyLinkedList {
         if(head == null){
             //there is no node in linked list
             head = new Node(id,name);
-            System.out.println(head);
+            //System.out.println(head);
         }else{
             Node temp = new Node(id,name);
             temp.next = head;
             head = temp;
-            System.out.println(head);
+            //System.out.println(head);
         }
         count++;
     }
@@ -72,6 +80,28 @@ public class MyLinkedList {
         }
         System.out.println(temp);
         System.out.println(temp.getNo());
+    }
+
+    void deleteNodeFromEnd(){
+        if(head == null){
+            System.out.println("Nothing to delete");
+        }else{
+            Node temp = head;
+            Node prev = head;
+            while(temp.next!=null) {
+                prev = temp;
+                temp = temp.next;
+            }
+            temp = null;
+            prev.next = null;
+            System.gc();
+            finalize();
+            count--;
+        }
+    }
+    @Override
+    protected void finalize(){
+        System.out.println("Node is deleted");
     }
 }
 class Node{
