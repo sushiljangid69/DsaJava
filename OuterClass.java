@@ -1,9 +1,10 @@
-public class OuterClass<NestedClass>{
+public class OuterClass<NestedClass,InnerClass>{
     private int id;
     static int count = 10;
     String name;
-    OuterClass(String name){
+    OuterClass(String name,String age){
         this.name = name;
+        new OuterClass.NestedClass(age);
     }
     OuterClass(){}
     static class NestedClass {
