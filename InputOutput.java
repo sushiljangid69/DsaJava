@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class InputOutput {
     static String fileName = "F://abc.txt";
@@ -12,6 +13,7 @@ public class InputOutput {
 
         //table print logic
         int n = 115,r;
+
         //StringBuffer buffer = new StringBuffer();
         StringBuffer buffer = new StringBuffer();
         for(int i=1;i<=10;i++){
