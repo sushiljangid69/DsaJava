@@ -1,35 +1,31 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.File;
+
+import java.io.RandomAccessFile;
+import java.util.Arrays;
+import java.util.Scanner;
 public class MyRandomAccess {
-    public static void main(String[] args)  {
-        File file = new File("E://abc.txt");
-        try {
-            RandomAccessFile raf = new RandomAccessFile(file, "rw");
+    public static void main(String[] args) {
+        String text = "";
+        String[] texts = {};
+        try(RandomAccessFile r = new RandomAccessFile(new File("E://abc.txt"),"rw")){
+            text = r.readLine();
+            texts = text.split(" ");
+            for(int i=0;i<texts.length;i++){
+                if(texts[i].equals("Ram")){
+                    texts[i] = "Ravan";
+                }
+            }
+            r.writeBytes(Arrays.toString(texts));
+        }catch(IOException e){
 
-            //reading data from the file
-            System.out.println(raf.getFilePointer());
-            String msg = raf.readLine();
-            System.out.println(msg);
-
-            raf.seek(0);
-            //writing the data
-            raf.writeBytes(" Sushil Jangid");
-
-            //read
-            //raf.seek(0);
-
-            System.out.println(raf.getFilePointer());
-            String msg1 = raf.readLine();
-            System.out.println(msg1);
-
-        }catch(FileNotFoundException e1){
-            e1.printStackTrace();
         }
-        catch(IOException e2){
-            e2.printStackTrace();
-        }
+
+
+
+
+
     }
 }
 /*
