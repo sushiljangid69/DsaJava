@@ -42,9 +42,12 @@ class Table{
     Table(int n){
         this.n = n;
     }
-    synchronized void printTable(){
-        for(int i=1;i<11;i++){
-            System.out.printf("%d x %d = %d%n",n,i,n*i);
+    void printTable(){
+        System.out.println("out of lock");
+        synchronized (this){
+            for(int i=1;i<11;i++){
+                System.out.printf("%d x %d = %d%n",n,i,n*i);
+            }
         }
     }
 }
